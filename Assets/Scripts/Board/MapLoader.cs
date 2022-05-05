@@ -50,7 +50,7 @@ public class MapLoader : MonoBehaviour
         unit2.faction = 1;
 
         
-        unit2.GetComponentInChildren<SpriteRenderer>().color = Color.red; //apenas para diferencia inimigo e jogador (temporario)
+        unit2.GetComponentInChildren<SpriteRenderer>().color = Color.red; //apenas para diferenciar inimigo e jogador (temporario)
     }
 
 

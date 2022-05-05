@@ -13,6 +13,7 @@ public class Board : MonoBehaviour
     [HideInInspector]
     public Grid grid;
     public List<Tile> highlights;
+    [HideInInspector]
     public Vector3Int[] dirs = new Vector3Int[4] {Vector3Int.up , Vector3Int.down,Vector3Int.left, Vector3Int.right };
 
 
