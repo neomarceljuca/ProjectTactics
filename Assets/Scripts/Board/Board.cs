@@ -59,7 +59,6 @@ public class Board : MonoBehaviour
         worldPos.y += (floor.tilemap.tileAnchor.y/2) ;
         TileLogic tileLogic = new TileLogic(pos,worldPos, floor);
         tiles.Add(pos, tileLogic);
-        Debug.Log(tileLogic);
     }
 
     void ShadowOrdering() {
