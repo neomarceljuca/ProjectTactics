@@ -25,7 +25,7 @@ public class TileLogic
     //public TileType tileType;    will do later
 
 
-    //Could use to implement cell distruction
+    //Could use to implement cell destruction
     //[HideInInspector]
     //public int hp;
 
