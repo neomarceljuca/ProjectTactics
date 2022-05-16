@@ -6,6 +6,10 @@ using UnityEngine.Tilemaps;
 public class Board : MonoBehaviour
 {
  
+
+    //Acesso do mapa:
+    //COORDENADAS X e Y: tiles( Vector3(x,y,0) )
+    //COORDENADA Z para ALTURA: floor
     public Dictionary<Vector3Int, TileLogic> tiles;
     public List<Floor> floors;
     public static Board instance;
@@ -40,11 +44,14 @@ public class Board : MonoBehaviour
             yield return null;
             for (int j = 0; j< floorTiles.Count; j++){
                 if (!tiles.ContainsKey(floorTiles[j])){
+                    
                     CreateTile(floorTiles[j], floors[i]);
                 }
             }
            
         }
+
+        
     }
 
     void CreateTile(Vector3Int pos, Floor floor) {
@@ -52,6 +59,7 @@ public class Board : MonoBehaviour
         worldPos.y += (floor.tilemap.tileAnchor.y/2) ;
         TileLogic tileLogic = new TileLogic(pos,worldPos, floor);
         tiles.Add(pos, tileLogic);
+        Debug.Log(tileLogic);
     }
 
     void ShadowOrdering() {
