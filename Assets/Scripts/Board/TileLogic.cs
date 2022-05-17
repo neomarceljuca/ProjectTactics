@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileLogic
+public class TileLogic: IComparable<TileLogic>
 {
     public Vector3Int pos;
 
@@ -43,5 +44,33 @@ public class TileLogic
     public static TileLogic Create(Vector3Int cellPos, Vector3 worldPosition, Floor tempFloor) {
         TileLogic tileLogic = new TileLogic(cellPos, worldPosition, tempFloor);
         return tileLogic;
+    }
+
+    public int Compare(TileLogic first, TileLogic second)
+    {
+        if (first.distance == second.distance)
+            return 0;
+
+        if (first.distance < second.distance)
+            return -1;
+
+        if (first.distance > second.distance)
+            return 1;
+        //nunca irá chegar, porém necessário para implementação
+        return 0;
+    }
+
+    public int CompareTo(TileLogic other)
+    {
+        if (this.distance == other.distance)
+            return 0;
+
+        if (this.distance < other.distance)
+            return -1;
+
+        if (this.distance > other.distance)
+            return 1;
+        //nunca irá chegar, porém necessário para implementação
+        return 0;
     }
 }

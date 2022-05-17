@@ -32,6 +32,7 @@ public class MoveSelectionState : State
 
         if (button == 1)
         {
+            //So permite o personagem se mover a um Tile dentre os encontrados via Dijkstra
             if(tiles.Contains(machine.selectedTile))
                 machine.ChangeTo<MoveSequenceState>();
 

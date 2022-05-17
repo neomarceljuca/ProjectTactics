@@ -86,7 +86,7 @@ public class Movement : MonoBehaviour
     public virtual bool ValidateMovement(TileLogic from, TileLogic to)
         {
             if (Mathf.Abs(from.floor.height - to.floor.height) > 1 ||
-            to.content!=null)
+                          to.content!=null)
         {
             return true;
         }

@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     //Acesso do mapa:
     //COORDENADAS X e Y: tiles( Vector3(x,y,0) )
     //COORDENADA Z para ALTURA: floor
+    //Método de Dijkstra - Search()
     public Dictionary<Vector3Int, TileLogic> tiles;
     public List<Floor> floors;
     public static Board instance;
@@ -114,42 +115,83 @@ public class Board : MonoBehaviour
         }
     }
 
+    //GRAFOS    
+    //Dijkstra para pegar tiles proximas de acordo com o a distância de movement
     public List<TileLogic> Search(TileLogic start)
     {
+        #region Setup
+        //dist[]: contém a distância a partir da origem TileLogic start, está guardada nas informações de cada tile, ou seja:
+        // dist[] = tiles.Values.distance
+
+        //prev[]: contém o tile predecessor para o menor caminho possível.
+        //prev[] = tiles.Values.prev 
+
         Movement m = Turn.unit.GetComponent<Movement>();
 
         List<TileLogic> tilesSearch = new List<TileLogic>();
+        //tilesSearch.Add(start);
 
-        tilesSearch.Add(start);
-
+        //dist[v] = infinity, prev[v] = undefined
         ClearSearch();
 
-        Queue<TileLogic> checkNext = new Queue<TileLogic>();
-        Queue<TileLogic> checkNow = new Queue<TileLogic>();
+        // Q = todos os nodos do grafo
+        //// TO DO: Implementar Min Heap em outra classe para substituir checkNext e checkNow por uma só priority Queue
+        //Queue<TileLogic> checkNext = new Queue<TileLogic>();
+        //Queue<TileLogic> checkNow = new Queue<TileLogic>();
 
-        start.distance = 0;
-        checkNow.Enqueue(start);
-
-        while (checkNow.Count > 0)
+        List<TileLogic> ListaPrioritaria = new List<TileLogic>();
+        //ListaPrioritaria.Add(start);
+        foreach (TileLogic t in tiles.Values) 
         {
-            TileLogic t = checkNow.Dequeue();
+            ListaPrioritaria.Add(t);
+        }
+
+            //equivalente a dist[source] = 0;
+            start.distance = 0;
+        //checkNow.Enqueue(start);
+        #endregion
+
+
+        //While Q not empty
+        //while (checkNow.Count > 0)
+        while(ListaPrioritaria.Count > 0)
+        {
+            ListaPrioritaria.Sort();
+            TileLogic t = ListaPrioritaria[0];
+            ListaPrioritaria.RemoveAt(0);
+            
+            //TileLogic t = checkNow.Dequeue();
+            //Olha para as 4 direções adjacentes, contidas em dirs. Lembrando que tiles é um dicionário com chave = Vector3
             for (int i = 0; i < 4; i++)
             {
+                //next = cada tile (vértice) adjacente a ser iterada e comparada com seus caminhos
                 TileLogic next = GetTile(t.pos + dirs[i]);
+
+                //nao adcionar se
                 if(next == null || next.distance <= t.distance + 1 || t.distance + 1 > Turn.unit.GetStat(StatEnum.MOVE) || m.ValidateMovement(t,next))
                 {
                     continue;  
                 }
                 //possivel checagem adicional
+ 
                 next.distance = t.distance + 1;
                 next.prev = t;
-                checkNext.Enqueue(next);
+
+                // checkNext.Enqueue(next);
+                //ListaPrioritaria.Add(next);
+
+                /* OBSERVAÇÃO
+                 * adiciona aquele tile na lista de objetos alcancaveis
+                 * um relaxamento de aresta pode ocasionar em tiles repetidos serem adicionados.
+                 * No entanto, isso não é um problema crítico, pois essa lista de tiles é somente usada para ser selecionada e atualizada na tela
+                 * Logo, não há problema alguns tiles serem atualizados e selecionados mais de uma vez, o conjunto final não será alterado.
+                 */ 
                 tilesSearch.Add(next);
             }
-            if (checkNow.Count == 0)
+            /*if (checkNow.Count == 0)
             {
                 SwapReference(ref checkNow, ref checkNext);
-            }
+            }*/
         }
 
         return tilesSearch;

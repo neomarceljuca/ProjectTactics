@@ -27,6 +27,9 @@ public class MoveSequenceState : State
 
     }
 
+
+    //GRAFOS
+    //Pega o resultado guardado nos tiles, obtido através de Dijkstra, no método Board.Search();
     List<TileLogic> CreatePath()
     {
         List<TileLogic> path = new List<TileLogic>();
