@@ -8,9 +8,9 @@ public class MinHeap<T>
 {
 	//começo do caos. calma vai dar certo
 	//implementar com um Array 
-	private int[] heap;
-	private int myLength;
-	private bool min;
+	//private int[] heap;
+	//private int myLength;
+	//private bool min;
 
 	/**
 	 * Default Constructor
@@ -18,8 +18,8 @@ public class MinHeap<T>
 	public MinHeap()
 	{
 
-		myLength = 0;
-		min = true;
+		//myLength = 0;
+		//min = true;
 	}
 
 	//PUBLIC METHODS

@@ -67,7 +67,7 @@ public class MapLoader : MonoBehaviour
         {
             if(unit.stats.stats[i].type == StatEnum.MOVE)
             {   
-                unit.stats.stats[i].value = Random.Range(1, 6);
+                unit.stats.stats[i].value = Random.Range(3, 8);
             }
             else
             { 

@@ -1,18 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Blockers : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static Blockers instance;
+
+    void Awake()
     {
-        
+        instance = this;
+        GetComponent<TilemapRenderer>().enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public List<Vector3Int> GetBlockers() 
     {
-        
+        Tilemap tilemap = GetComponent<Tilemap>();
+        List<Vector3Int> blockeds = new List<Vector3Int>();
+
+        BoundsInt bounds = tilemap.cellBounds;
+
+        foreach (var pos in bounds.allPositionsWithin) 
+        {
+            if (tilemap.HasTile(pos)) 
+            {
+                blockeds.Add(new Vector3Int(pos.x, pos.y, 0));
+                //Debug.LogFormat("Tile ({0},{1}) está bloqueado ", pos.x, pos.y);
+            }
+
+        }
+
+        return blockeds;
     }
 }
