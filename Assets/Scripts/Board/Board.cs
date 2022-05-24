@@ -127,6 +127,7 @@ public class Board : MonoBehaviour
         //prev[] = tiles.Values.prev 
 
         Movement m = Turn.unit.GetComponent<Movement>();
+        float requiredCost;
 
         List<TileLogic> tilesSearch = new List<TileLogic>();
         //tilesSearch.Add(start);
@@ -166,15 +167,17 @@ public class Board : MonoBehaviour
             {
                 //next = cada tile (vértice) adjacente a ser iterada e comparada com seus caminhos
                 TileLogic next = GetTile(t.pos + dirs[i]);
+                
+                requiredCost = t.distance + t.movementCost + floorDifferenceCost(t, next);
 
                 //nao adcionar se
-                if(next == null || next.distance <= t.distance + 1 || t.distance + 1 > Turn.unit.GetStat(StatEnum.MOVE) || m.ValidateMovement(t,next))
+                if (next == null || next.distance <= requiredCost || requiredCost > Turn.unit.GetStat(StatEnum.MOVE) || m.ValidateMovement(t,next))
                 {
                     continue;  
                 }
-                //possivel checagem adicional
- 
-                next.distance = t.distance + 1;
+                
+                    
+                next.distance = requiredCost;
                 next.prev = t;
 
                 // checkNext.Enqueue(next);
@@ -195,6 +198,16 @@ public class Board : MonoBehaviour
         }
 
         return tilesSearch;
+    }
+
+    private int floorDifferenceCost(TileLogic current, TileLogic next) 
+    {
+        if (next == null) return 0;
+
+        int floorDifference = current.floor.height - next.floor.height;
+
+        if (floorDifference < 0) return 1;
+        else return 0;  
     }
 
     void SwapReference(ref Queue<TileLogic> now, ref Queue<TileLogic> next)

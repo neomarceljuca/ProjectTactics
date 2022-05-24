@@ -15,6 +15,8 @@ public class TileLogic: IComparable<TileLogic>
 
     public int contentOrder;
 
+    public int movementCost;
+
     #region pathfinding
 
     public TileLogic prev;
@@ -22,8 +24,6 @@ public class TileLogic: IComparable<TileLogic>
     public float distance;
 
     #endregion
-
-    //public TileType tileType;    will do later
 
 
     //Could use to implement cell destruction
@@ -39,6 +39,8 @@ public class TileLogic: IComparable<TileLogic>
         worldPos = worldPosition;
         floor = tempFloor;
         contentOrder = tempFloor.contentOrder;
+
+        movementCost = MovementCost(cellPos, tempFloor);
     }
 
     public static TileLogic Create(Vector3Int cellPos, Vector3 worldPosition, Floor tempFloor) {
@@ -46,6 +48,23 @@ public class TileLogic: IComparable<TileLogic>
         return tileLogic;
     }
 
+    private int MovementCost(Vector3Int cellPos,Floor tempFloor) 
+    {
+         String tileType = floor.tilemap.GetTile(cellPos).name;
+        switch (tileType)
+        {
+            case "sand":
+                return 2;
+            case "grass":
+                return 1;
+            default:
+                Debug.LogWarning("No registered tile value assigned. Tile received default movementCost 1");
+                return 1;
+        }
+    }
+
+
+    //IComparer
     public int Compare(TileLogic first, TileLogic second)
     {
         if (first.distance == second.distance)
@@ -60,6 +79,7 @@ public class TileLogic: IComparable<TileLogic>
         return 0;
     }
 
+    //IComparable
     public int CompareTo(TileLogic other)
     {
         if (this.distance == other.distance)
