@@ -11,7 +11,6 @@ public class PanelPositioner : MonoBehaviour
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
-
     }
 
     public void MoveTo(string positionName)
@@ -21,7 +20,6 @@ public class PanelPositioner : MonoBehaviour
         PanelPosition pos = positions.Find(x => x.name == positionName); //for each x in positions, return x if x.name == positionName  
 
         StartCoroutine(Move(pos));
-
     }
 
 

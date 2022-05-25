@@ -19,7 +19,7 @@ public class ChooseActionState : State
 
         //teste
         inputs.TestOnPress += TestOnPress;
-
+        
         machine.chooseActionPanel.MoveTo("Show");
     }
 
@@ -129,4 +129,7 @@ public class ChooseActionState : State
             image.color = Color.white;
         }
     }
+
+
+    
 }

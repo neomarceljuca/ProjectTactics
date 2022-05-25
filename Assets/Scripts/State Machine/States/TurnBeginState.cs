@@ -15,10 +15,12 @@ public class TurnBeginState : State
         BreakDraw(); 
         machine.units.Sort((x,y) => x.chargeTime.CompareTo(y.chargeTime));
         Turn.unit = machine.units[0];
+        //testing events
+        if (OnNewTurn != null) OnNewTurn(Turn.unit.faction);
+        //**
 
         yield return null;
-        machine.ChangeTo<ChooseActionState>();
-
+        machine.ChangeTo<ChooseActionState>(); 
     }
 
 
@@ -33,5 +35,8 @@ public class TurnBeginState : State
         }
     }
 
-
+    //testing events 
+    public delegate void newTurn(int factionID);
+    public static event newTurn OnNewTurn;
+    //**
 }
