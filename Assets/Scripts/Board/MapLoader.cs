@@ -40,8 +40,8 @@ public class MapLoader : MonoBehaviour
 
     public void CriaUnidades()
     {
-        Unit unit1 = Createunit(new Vector3Int(3 ,5 ,0 ), "Jogador");
-        Unit unit2 = Createunit(new Vector3Int(2, 0, 0), "Inimigo");
+        Unit unit1 = Createunit(new Vector3Int(3 ,5 ,0 ), "Jogador 1");
+        Unit unit2 = Createunit(new Vector3Int(2, 0, 0), "Jogador 2");
 
         StateMachineController.instance.units.Add(unit1); //lista de unidadess
         StateMachineController.instance.units.Add(unit2);
@@ -68,6 +68,10 @@ public class MapLoader : MonoBehaviour
             if(unit.stats.stats[i].type == StatEnum.MOVE)
             {   
                 unit.stats.stats[i].value = Random.Range(3, 8);
+            }
+            else if(unit.stats.stats[i].type == StatEnum.MaxHP)
+            {
+                unit.stats.stats[i].value = unit.GetStat(StatEnum.HP);
             }
             else
             { 

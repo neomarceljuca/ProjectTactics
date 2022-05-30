@@ -21,6 +21,7 @@ public class ChooseActionState : State
         inputs.TestOnPress += TestOnPress;
         
         machine.chooseActionPanel.MoveTo("Show");
+        machine.characterStatsPanel.MoveTo("Show");
     }
 
     public override void Exit()
@@ -33,6 +34,7 @@ public class ChooseActionState : State
         inputs.TestOnPress -= TestOnPress;
 
         machine.chooseActionPanel.MoveTo("Hide");
+        machine.characterStatsPanel.MoveTo("Hide");
     }
 
     void OnMove(object sender, object args)

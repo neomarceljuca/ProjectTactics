@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TempCharacterDisplayUI : MonoBehaviour
+public class SwitchPanelColorUI : MonoBehaviour
 {
-    int hp;
     Image myWindow;
 
     private void Awake()
@@ -26,8 +25,10 @@ public class TempCharacterDisplayUI : MonoBehaviour
     }
 
 
-    private void changeUIColor(int factionID)
+    private void changeUIColor(Unit turnUnit)
     {
+        int factionID = turnUnit.faction;
+
         if (factionID == 0)
         {
             //Debug.Log("UI Blue!");

@@ -22,6 +22,7 @@ public class StateMachineController : MonoBehaviour
     public Image chooseActionSelection;
 
     public PanelPositioner chooseActionPanel;
+    public PanelPositioner characterStatsPanel;
 
    [Header("SkillSelectionState")]
    public List<Image> skillSelectionButtons;
