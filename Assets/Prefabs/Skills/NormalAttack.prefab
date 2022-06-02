@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16ec8619c8fe2949babb62d0354c89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 50
   manaCost: 0
   icon: {fileID: 21300000, guid: 9ee7d74ff8760d44bb7fb12ba202fdfc, type: 3}

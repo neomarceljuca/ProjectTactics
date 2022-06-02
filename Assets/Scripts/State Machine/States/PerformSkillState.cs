@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PerformSkillState : State
 {
@@ -28,12 +29,23 @@ public class PerformSkillState : State
             string temp = "Acabou!";
             CombatLog.UpdateLog(temp);
             Debug.Log(temp);
+            EndGame();
+
         }
         else
         {
             machine.ChangeTo<TurnEndState>();
         }
        
+    }
+
+    public void EndGame() 
+    {
+        Time.timeScale = 0;
+        TextMeshProUGUI myText = machine.gameOverPanel.GetComponentInChildren<TextMeshProUGUI>();
+        myText.text = Turn.unit.alliance == 0 ? "O jogador 1 Venceu" : "O jogador 2 Venceu";
+        machine.gameOverPanel.SetActive(true);
+    
     }
 }
 

@@ -93,8 +93,8 @@ public class ChooseActionState : State
                     machine.ChangeTo<MoveSelectionState>();
                 break;
             case 1:
-                //if (!Turn.hasActed)
-                    //machine.ChangeTo<SkillSelectionState>();
+                if (!Turn.hasActed)
+                    machine.ChangeTo<SkillSelectionState>();
                 break;
             case 2:
                 //if (!Turn.hasActed)
@@ -110,8 +110,8 @@ public class ChooseActionState : State
     {
         PaintButton(machine.chooseActionButtons[0], Turn.hasMoved); //se se moveu
         //--temporariamente desativar ações--
-        PaintButton(machine.chooseActionButtons[1], true);
-        PaintButton(machine.chooseActionButtons[2], true);
+        PaintButton(machine.chooseActionButtons[1], Turn.hasActed);
+        //PaintButton(machine.chooseActionButtons[2], true);
         //--
 
 

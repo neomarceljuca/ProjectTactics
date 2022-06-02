@@ -30,6 +30,9 @@ public class StateMachineController : MonoBehaviour
    public PanelPositioner skillSelectionPanel;
    public Sprite skillSelectionBlocked;
 
+    [Header("PerformSkillState")]
+    public GameObject gameOverPanel;
+
     private void Awake()
     {
         instance = this;
