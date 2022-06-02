@@ -5,14 +5,14 @@ using UnityEngine;
 public class MoveSelectionState : State, ISearcher
 {
 
-    List<TileLogic> tiles;
+    List<TileLogic> reachedTiles;
 
 
     //Acesso do mapa:
     //COORDENADAS X e Y: tiles( Vector3(x,y,0) )
     //COORDENADA Z para ALTURA: floor
     //Método de Dijkstra - Search()
-    public Dictionary<Vector3Int, TileLogic> reachedTiles;
+    public Dictionary<Vector3Int, TileLogic> tiles;
     public List<Floor> floors;
     [HideInInspector]
     public Vector3Int[] dirs = new Vector3Int[4] { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
@@ -23,10 +23,10 @@ public class MoveSelectionState : State, ISearcher
         inputs.OnMove += OnMoveTileSelector;
         inputs.OnFire += OnFire;
 
-        reachedTiles = Board.instance.tiles;
-        tiles = Search(Turn.unit.tile);
-        tiles.Remove(Turn.unit.tile);
-        Board.instance.SelectTiles(tiles, Turn.unit.alliance);
+        tiles = Board.instance.tiles;
+        reachedTiles = Search(Turn.unit.tile);
+        reachedTiles.Remove(Turn.unit.tile);
+        Board.instance.SelectTiles(reachedTiles, Turn.unit.alliance);
     }
 
     public override void Exit()
@@ -34,7 +34,7 @@ public class MoveSelectionState : State, ISearcher
         base.Exit();
         inputs.OnMove -= OnMoveTileSelector;
         inputs.OnFire -= OnFire;
-        Board.instance.DeselectTiles(tiles);
+        Board.instance.DeselectTiles(reachedTiles);
     }
 
 
@@ -46,7 +46,7 @@ public class MoveSelectionState : State, ISearcher
         if (button == 1)
         {
             //So permite o personagem se mover a um Tile dentre os encontrados via Dijkstra
-            if(tiles.Contains(machine.selectedTile))
+            if(reachedTiles.Contains(machine.selectedTile))
                 machine.ChangeTo<MoveSequenceState>();
 
         }
@@ -85,7 +85,7 @@ public class MoveSelectionState : State, ISearcher
 
         List<TileLogic> ListaPrioritaria = new List<TileLogic>();
         //ListaPrioritaria.Add(start);
-        foreach (TileLogic t in reachedTiles.Values)
+        foreach (TileLogic t in tiles.Values)
         {
             ListaPrioritaria.Add(t);
         }
@@ -155,7 +155,7 @@ public class MoveSelectionState : State, ISearcher
 
     void ClearSearch()
     {
-        foreach (TileLogic t in reachedTiles.Values)
+        foreach (TileLogic t in tiles.Values)
         {
             t.prev = null;
             t.distance = int.MaxValue;

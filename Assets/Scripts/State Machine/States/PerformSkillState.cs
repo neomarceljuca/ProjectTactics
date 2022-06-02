@@ -29,7 +29,7 @@ public class PerformSkillState : State
             string temp = "Acabou!";
             CombatLog.UpdateLog(temp);
             Debug.Log(temp);
-            EndGame();
+            EndMatch();
 
         }
         else
@@ -39,7 +39,7 @@ public class PerformSkillState : State
        
     }
 
-    public void EndGame() 
+    public void EndMatch() 
     {
         Time.timeScale = 0;
         TextMeshProUGUI myText = machine.gameOverPanel.GetComponentInChildren<TextMeshProUGUI>();
