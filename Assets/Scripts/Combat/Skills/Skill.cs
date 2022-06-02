@@ -6,6 +6,8 @@ public class Skill : MonoBehaviour
 {
     public int damage;
     public int manaCost;
+    public int reach;
+    public int energyCost;
     public Sprite icon;
 
     public bool CanUse(){  //apenas checar se pode usar. Reducao de mana e demais acoes em perform state
