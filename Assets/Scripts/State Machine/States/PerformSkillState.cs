@@ -5,6 +5,8 @@ using TMPro;
 
 public class PerformSkillState : State
 {
+
+
     public override void Enter()
     {
         base.Enter();
@@ -14,16 +16,17 @@ public class PerformSkillState : State
 
     IEnumerator PerformSequence()
     {
-        yield return null;
+        yield return null;  
         Turn.targets = Turn.skill.GetTargets();
         yield return null;
         Turn.skill.Effect();
         yield return null;
         //aqui iria qualquer efeito ao final do turno
+        Turn.skill.PlayAnimation(Turn.targets);
 
 
         CombatLog.CheckAtive();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(Turn.skill.animationTime + 0.5f);
         if (CombatLog.IsOver())
         {
             string temp = "Acabou!";
@@ -34,7 +37,8 @@ public class PerformSkillState : State
         }
         else
         {
-            machine.ChangeTo<TurnEndState>();
+            Turn.hasActed = true;
+            machine.ChangeTo<ChooseActionState>();
         }
        
     }

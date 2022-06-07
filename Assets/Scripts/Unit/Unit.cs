@@ -31,7 +31,12 @@ public class Unit : MonoBehaviour
 
     public void SetStat(StatEnum stat, int value)
     {
-        //TO DO impedir que um personagem se cure além da vida máxima
+        //impedir que um personagem se cure além da vida máxima
+        if (stat == StatEnum.HP && GetStat(stat) + value > GetStat(StatEnum.MaxHP))
+        {
+            stats.stats[(int)stat].value = GetStat(StatEnum.MaxHP);
+            return;
+        }
 
         stats.stats[(int)stat].value = GetStat(stat) + value;
     }

@@ -9,6 +9,18 @@ public class Skill : MonoBehaviour
     public int reach;
     public int energyCost;
     public Sprite icon;
+    public Animator myAnimator;
+    public float animationTime;
+    public bool canTargetSelf;
+
+    private Vector3 posOffset;
+
+    public void Awake()
+    {
+        myAnimator = StateMachineController.instance.skillFXAnimator;  //transform.parent.GetComponentInChildren<Animator>();
+        posOffset = new Vector3(0f,0.5f);
+    }
+
 
     public bool CanUse(){  //apenas checar se pode usar. Reducao de mana e demais acoes em perform state
         if (Turn.unit.GetStat(StatEnum.MP) >= manaCost)
@@ -45,18 +57,32 @@ public class Skill : MonoBehaviour
             Unit unit = Turn.targets[i].content.GetComponent<Unit>();
             if (unit != null)
             {
-                Debug.LogFormat(" {0} estava com {1} de HP, foi afetado por {2}, recebeu a diferenca de {3}, e ficou com {4}", 
+
+                Debug.LogFormat(" {0} estava com {1} de HP, foi afetado por {2}, recebeu a diferenca de {3}", 
                     unit ,unit.GetStat(StatEnum.HP), this.name, -damage, unit.GetStat(StatEnum.HP) - damage);
 
-                string temp = string.Format(" {0} estava com {1} de HP, foi afetado por {2}, recebeu a diferenca de {3}, e ficou com {4}",
+                string temp = string.Format(" {0} estava com {1} de HP, foi afetado por {2}, recebeu a diferenca de {3}",
                     unit, unit.GetStat(StatEnum.HP), this.name, -damage, unit.GetStat(StatEnum.HP) - damage);
 
                 CombatLog.UpdateLog(temp);
-                //unit + " estava com "+ unit.GetStat(StatEnum.HP) + " de HP, foi afetado por "+ this.name + ", recebeu a diferenca de " + Convert.toString(-damage) + ", e ficou com" + unit.GetStat(StatEnum.HP) - damage;
-
-
-
+                
+                
                 unit.SetStat(StatEnum.HP, -damage);
+            }
+        }
+    }
+
+    public void PlayAnimation(List<TileLogic> targets)
+    {
+        //not supported for multiple targets yet
+        for (int i = 0; i < targets.Count; i++)
+        {
+            Unit unit = Turn.targets[i].content.GetComponent<Unit>();
+            if (unit != null)
+            {
+                myAnimator.transform.position = unit.transform.position + posOffset;
+                myAnimator.Play(this.gameObject.name);
+                
             }
         }
     }

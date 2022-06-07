@@ -49,6 +49,8 @@ MonoBehaviour:
   reach: 1
   energyCost: 1
   icon: {fileID: 21300000, guid: 9ee7d74ff8760d44bb7fb12ba202fdfc, type: 3}
+  myAnimator: {fileID: 0}
+  animationTime: 1.85
 --- !u!114 &4209862966546471787
 MonoBehaviour:
   m_ObjectHideFlags: 0

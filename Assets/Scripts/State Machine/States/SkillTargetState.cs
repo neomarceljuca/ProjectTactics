@@ -20,7 +20,7 @@ public class SkillTargetState : State, ISearcher
 
         tiles = Board.instance.tiles;
         reachedTiles = Search(Turn.unit.tile);
-        reachedTiles.Remove(Turn.unit.tile);
+        //if(!Turn.skill.canTargetSelf) reachedTiles.Remove(Turn.unit.tile);
         Board.instance.SelectTiles(reachedTiles, Turn.unit.alliance);
     }
 
@@ -69,7 +69,7 @@ public class SkillTargetState : State, ISearcher
         float requiredCost;
 
         List<TileLogic> tilesSearch = new List<TileLogic>();
-        //tilesSearch.Add(start);
+        if(Turn.skill.canTargetSelf) tilesSearch.Add(start);
 
         //dist[v] = infinity, prev[v] = undefined
         ClearSearch();
@@ -90,6 +90,7 @@ public class SkillTargetState : State, ISearcher
         start.distance = 0;
         //checkNow.Enqueue(start);
         #endregion
+
 
 
         //While Q not empty
@@ -130,10 +131,6 @@ public class SkillTargetState : State, ISearcher
                  */
                 tilesSearch.Add(next);
             }
-            /*if (checkNow.Count == 0)
-            {
-                SwapReference(ref checkNow, ref checkNext);
-            }*/
         }
 
         return tilesSearch;

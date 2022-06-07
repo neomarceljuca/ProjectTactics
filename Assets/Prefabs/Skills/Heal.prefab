@@ -48,3 +48,6 @@ MonoBehaviour:
   reach: 5
   energyCost: 2
   icon: {fileID: 21300000, guid: 4101d53bc3b0372409fc743b3af32dd7, type: 3}
+  myAnimator: {fileID: 0}
+  animationTime: 0.7
+  canTargetSelf: 1

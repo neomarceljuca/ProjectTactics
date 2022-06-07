@@ -32,6 +32,7 @@ public class StateMachineController : MonoBehaviour
 
     [Header("PerformSkillState")]
     public GameObject gameOverPanel;
+    public Animator skillFXAnimator;
 
     private void Awake()
     {
