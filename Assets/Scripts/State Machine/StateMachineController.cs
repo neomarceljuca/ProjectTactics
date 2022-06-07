@@ -34,6 +34,9 @@ public class StateMachineController : MonoBehaviour
     public GameObject gameOverPanel;
     public Animator skillFXAnimator;
 
+    [Header("RoamState")]
+    public DisplayStats myStatDisplayer;
+
     private void Awake()
     {
         instance = this;

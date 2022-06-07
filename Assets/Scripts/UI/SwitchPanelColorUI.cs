@@ -13,19 +13,7 @@ public class SwitchPanelColorUI : MonoBehaviour
     }
 
 
-
-    private void OnEnable()
-    {
-        TurnBeginState.OnNewTurn += changeUIColor;
-    }
-
-    void OnDisable()
-    {
-        TurnBeginState.OnNewTurn -= changeUIColor;
-    }
-
-
-    private void changeUIColor(Unit turnUnit)
+    public void changeUIColor(Unit turnUnit)
     {
         int factionID = turnUnit.faction;
 

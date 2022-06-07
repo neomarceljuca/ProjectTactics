@@ -10,9 +10,11 @@ public class DisplayStats : MonoBehaviour
     public TextMeshProUGUI maxHPText;
     public TextMeshProUGUI movementText;
     public TextMeshProUGUI ataqueText;
+    private SwitchPanelColorUI myColorUI;
 
     private void OnEnable()
     {
+        myColorUI = GetComponent<SwitchPanelColorUI>();
         TurnBeginState.OnNewTurn += UpdateUI;
     }
 
@@ -23,7 +25,7 @@ public class DisplayStats : MonoBehaviour
 
     public void UpdateUI(Unit turnUnit) 
     {
-   
+        myColorUI.changeUIColor(turnUnit);
         charNameText.text = turnUnit.name;
         HPText.text = turnUnit.GetStat(StatEnum.HP).ToString();
         maxHPText.text = turnUnit.GetStat(StatEnum.MaxHP).ToString();

@@ -34,6 +34,11 @@ public class State : MonoBehaviour
         if (t != null)
         {
             MoveSelector(t);
+
+            //testing events (notacao de chamada simplificada)
+            lookToTile?.Invoke(t);
+
+            //**
         }
     }
 
@@ -67,5 +72,10 @@ public class State : MonoBehaviour
         currentUISelector.transform.localPosition = buttons[index].transform.localPosition;
 
     }
+
+    //testing events 
+    public delegate void focusOnTile(TileLogic t);
+    public static event focusOnTile lookToTile;
+    //**
 
 }

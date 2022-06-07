@@ -22,6 +22,10 @@ public class SkillTargetState : State, ISearcher
         reachedTiles = Search(Turn.unit.tile);
         //if(!Turn.skill.canTargetSelf) reachedTiles.Remove(Turn.unit.tile);
         Board.instance.SelectTiles(reachedTiles, Turn.unit.alliance);
+        State.lookToTile += displayStatsMenu;
+
+        if(reachedTiles.Contains(machine.selectedTile)) machine.characterStatsPanel.MoveTo("Show");
+
     }
 
     public override void Exit()
@@ -29,7 +33,11 @@ public class SkillTargetState : State, ISearcher
         base.Exit();
         inputs.OnMove -= OnMoveTileSelector;
         inputs.OnFire -= OnFire;
+        State.lookToTile -= displayStatsMenu;
         Board.instance.DeselectTiles(reachedTiles);
+
+        machine.myStatDisplayer.UpdateUI(Turn.unit);
+        machine.characterStatsPanel.MoveTo("Hide");
     }
 
     void OnFire(object sender, object args)
@@ -163,6 +171,22 @@ public class SkillTargetState : State, ISearcher
         return tile;
     }
 
+    void displayStatsMenu(TileLogic t)
+    {
+        machine.characterStatsPanel.MoveTo("Hide");
+        if (t.content != null)
+        {
+            var mycontent = t.content.GetComponent<Unit>();
+            if (mycontent is Unit && reachedTiles.Contains(machine.selectedTile))
+            {
+                machine.myStatDisplayer.UpdateUI(mycontent);
+                machine.characterStatsPanel.MoveTo("Show");
+            }
+            else
+            {
 
+            }
+        }
+    }
 
 }

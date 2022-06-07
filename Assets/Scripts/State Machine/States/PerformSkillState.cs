@@ -22,6 +22,8 @@ public class PerformSkillState : State
         Turn.skill.Effect();
         yield return null;
         //aqui iria qualquer efeito ao final do turno
+
+        yield return new WaitForSeconds(0.4f);
         Turn.skill.PlayAnimation(Turn.targets);
 
 

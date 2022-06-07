@@ -5529,6 +5529,7 @@ MonoBehaviour:
     type: 3}
   gameOverPanel: {fileID: 1514844320}
   skillFXAnimator: {fileID: 571187398}
+  myStatDisplayer: {fileID: 589154986}
 --- !u!1 &1348930619
 GameObject:
   m_ObjectHideFlags: 0

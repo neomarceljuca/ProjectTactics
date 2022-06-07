@@ -9,8 +9,11 @@ public class RoamState : State
         base.Enter();
         //add inputs
         inputs.OnMove += OnMoveTileSelector;
+        State.lookToTile += displayStatsMenu;
         inputs.OnFire += OnFire;
         CheckNullPosition();
+
+        machine.characterStatsPanel.MoveTo("Show");
     }
 
     public override void Exit()
@@ -18,6 +21,10 @@ public class RoamState : State
         base.Exit();
         inputs.OnMove -= OnMoveTileSelector;
         inputs.OnFire -= OnFire;
+        State.lookToTile -= displayStatsMenu;
+
+        //ensure updates to correct display
+        machine.myStatDisplayer.UpdateUI(Turn.unit);
     }
 
     void CheckNullPosition()
@@ -47,6 +54,29 @@ public class RoamState : State
 
         }
     }
+
+
+
+    void displayStatsMenu(TileLogic t) 
+    {
+        machine.characterStatsPanel.MoveTo("Hide");
+        if (t.content != null) 
+        {
+            var mycontent = t.content.GetComponent<Unit>();
+            if (mycontent is Unit) 
+            {
+                machine.myStatDisplayer.UpdateUI(mycontent);
+                machine.characterStatsPanel.MoveTo("Show");
+            }
+            else 
+            {
+            
+            }
+
+        }
+    }
+
+   
 
 
 }
