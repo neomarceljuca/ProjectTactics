@@ -14,13 +14,13 @@ public class SkillTargetState : State, ISearcher
 
     public override void Enter()
     {
+        MoveSelector(Turn.unit.tile);
         base.Enter();
         inputs.OnMove += OnMoveTileSelector;
         inputs.OnFire += OnFire;
 
         tiles = Board.instance.tiles;
         reachedTiles = Search(Turn.unit.tile);
-        //if(!Turn.skill.canTargetSelf) reachedTiles.Remove(Turn.unit.tile);
         Board.instance.SelectTiles(reachedTiles, Turn.unit.alliance);
         State.lookToTile += displayStatsMenu;
 
